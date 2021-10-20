@@ -1,7 +1,9 @@
 package com.example.bookinglessons;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.bookinglessons.Data.UserViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,10 +27,15 @@ public class MainActivity extends AppCompatActivity {
 
         extras = getIntent().getExtras();
         usernameOfLoggedUser = extras.getString("key-username", "NoValue");
-
+        showWelcomeToast(usernameOfLoggedUser);
         setViewModelUser(usernameOfLoggedUser);
         setupUIElements();
 
+    }
+
+    private void showWelcomeToast(String username) {
+        Toast toast = Toast.makeText(getApplicationContext(), "Hello " + username, Toast.LENGTH_SHORT*2);
+        toast.show();
     }
 
     private void setupUIElements() {

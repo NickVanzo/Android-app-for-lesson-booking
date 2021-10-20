@@ -1,7 +1,6 @@
-package com.example.bookinglessons.ui.home;
+package com.example.bookinglessons.ui.booklessons;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,22 +9,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.bookinglessons.Data.UserViewModel;
-import com.example.bookinglessons.databinding.FragmentHomeBinding;
+import com.example.bookinglessons.databinding.FragmentDashboardBinding;
 
-public class HomeFragment extends Fragment {
+public class BookLessonsFragment extends Fragment {
 
     private UserViewModel userViewModel;
-    private FragmentHomeBinding binding;
+    private FragmentDashboardBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
+        final TextView textView = binding.textDashboard;
         userViewModel.getUser().observe(getViewLifecycleOwner(), item -> {
             textView.setText(item);
         });
