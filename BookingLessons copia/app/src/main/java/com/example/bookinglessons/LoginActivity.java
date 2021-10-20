@@ -31,9 +31,7 @@ public class LoginActivity extends AppCompatActivity  {
             loginButton = findViewById(R.id.loginButton);
             loginButton.setOnClickListener(
                     view -> {
-                        User loggedUser = new User(usernameText.getText().toString());
-                        intent.putExtra("key-username", loggedUser.getUsername());
-                        Log.d("In onCreate", "Username before click: " + usernameText.getText().toString());
+                        intent.putExtra("key-username", usernameText.getText().toString());
                         startActivity(intent);
                     }
             );
