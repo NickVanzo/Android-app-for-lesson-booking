@@ -14,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.bookinglessons.databinding.ActivityMainBinding;
 
+//Domanda da fare a Marino: ma come faccio a usare lo stesso backend per entrambi i progetti?
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
