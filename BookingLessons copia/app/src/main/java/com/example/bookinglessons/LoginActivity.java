@@ -3,10 +3,13 @@ package com.example.bookinglessons;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -14,6 +17,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bookinglessons.Controller.MySingleton;
+import com.example.bookinglessons.Data.UserViewModel;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -26,6 +31,7 @@ import java.net.URLConnection;
 
 public class LoginActivity extends AppCompatActivity  {
 
+    private UserViewModel userViewModel;
     Button loginButton = null;
     Intent intent = null;
     EditText usernameText;
@@ -36,25 +42,39 @@ public class LoginActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         intent = new Intent(this, MainActivity.class);
         setUpUIElements();
         Log.d("In login activity", "This is the url provided" + URL);
-        callServer();
     }
 
-    private void callServer() {
+    private void login() {
         RequestQueue queue = Volley.newRequestQueue(this);
-
-        String url = "http://10.0.2.2:8080/demoWebDevelopment_war_exploded/hello-servlet";
+        String username = usernameText.getText().toString();
+        String psw = passwordText.getText().toString();
+        String url = "http://10.0.2.2:8080/demoWebDevelopment_war_exploded/auth/login?id="+username+"&psw="+psw+"";
         // Request a string response from the provided URL.
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("In callServer", "Object returned: " +response.toString());
+                        try {
+                            Log.d("In callServer", "Object returned: " +response.getString("Status"));
+
+                            if(response.getString("Status").equals("Logged")) {
+                                intent.putExtra("key-username", usernameText.getText().toString());
+                                intent.putExtra("surname", response.getString("Surname"));
+                                intent.putExtra("role", response.getString("Role"));
+                                startActivity(intent);
+                            } else {
+                                showErrorMessage("Password or username wrong");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
 
@@ -71,6 +91,10 @@ public class LoginActivity extends AppCompatActivity  {
         Log.d("In call server", "HELLO");
     }
 
+    private void showErrorMessage(String error) {
+        Toast toast = Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT*2);
+        toast.show();
+    }
 
 
     private void setUpUIElements() {
@@ -82,8 +106,7 @@ public class LoginActivity extends AppCompatActivity  {
             loginButton = findViewById(R.id.loginButton);
             loginButton.setOnClickListener(
                     view -> {
-                        intent.putExtra("key-username", usernameText.getText().toString());
-                        startActivity(intent);
+                        login();
                     });
         }
     }

@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     String usernameOfLoggedUser;
+    String surnameOfLoggedUser;
+    String roleOfLoggedUser;
     Bundle extras;
     private UserViewModel viewModel;
 
@@ -28,14 +30,16 @@ public class MainActivity extends AppCompatActivity {
 
         extras = getIntent().getExtras();
         usernameOfLoggedUser = extras.getString("key-username", "NoValue");
+        surnameOfLoggedUser = extras.getString("surname", "NoValue");
+        roleOfLoggedUser = extras.getString("role", "NoValue");
         showWelcomeToast(usernameOfLoggedUser);
-        setViewModelUser(usernameOfLoggedUser);
+        setViewModelUser(usernameOfLoggedUser, roleOfLoggedUser, surnameOfLoggedUser);
         setupUIElements();
 
     }
 
     private void showWelcomeToast(String username) {
-        Toast toast = Toast.makeText(getApplicationContext(), "Hello " + username, Toast.LENGTH_SHORT*2);
+        Toast toast = Toast.makeText(getApplicationContext(), "You are logged as: " + username, Toast.LENGTH_SHORT*2);
         toast.show();
     }
 
@@ -54,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
-    private void setViewModelUser(String usernameOfLoggedUser) {
+    private void setViewModelUser(String usernameOfLoggedUser, String roleOfLoggedUser, String surnameOfLoggedUser) {
         viewModel = new ViewModelProvider(this).get(UserViewModel.class);
         viewModel.setUser(usernameOfLoggedUser);
+        viewModel.setRole(roleOfLoggedUser);
+        viewModel.setSurname(surnameOfLoggedUser);
         viewModel.getUser().observe(this, username -> {
             Log.d("In onCreate", "Share data: " + username);
         });
