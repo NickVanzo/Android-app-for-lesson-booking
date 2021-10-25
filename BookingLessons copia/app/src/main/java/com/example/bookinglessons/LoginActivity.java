@@ -17,17 +17,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bookinglessons.Controller.MySingleton;
+import com.example.bookinglessons.Data.Costants;
 import com.example.bookinglessons.Data.UserViewModel;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.URL;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URLConnection;
 
 public class LoginActivity extends AppCompatActivity  {
 
@@ -36,8 +29,7 @@ public class LoginActivity extends AppCompatActivity  {
     Intent intent = null;
     EditText usernameText;
     EditText passwordText;
-    public static String request = "helloServlet";
-    public static final String URL = ("http://10.0.2.2:8080/demoWebDevelopment_war_exploded/" + request);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +39,14 @@ public class LoginActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_login);
         intent = new Intent(this, MainActivity.class);
         setUpUIElements();
-        Log.d("In login activity", "This is the url provided" + URL);
+        Log.d("In login activity", "This is the url provided" + Costants.URL);
     }
 
     private void login() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String username = usernameText.getText().toString();
         String psw = passwordText.getText().toString();
-        String url = "http://10.0.2.2:8080/demoWebDevelopment_war_exploded/auth/login?id="+username+"&psw="+psw+"";
+        String url = Costants.URL + "auth/login?id="+username+"&psw="+psw+"";
         // Request a string response from the provided URL.
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {

@@ -18,7 +18,7 @@
             app:layout_constraintTop_toBottomOf="@+id/usernameField"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="60dp"
             app:layout_constraintHorizontal_bias="0.479" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0"/>
+            app:layout_constraintVertical_bias="0.0" android:text="123456"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:id="@+id/usernameField"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.32999998"/>
+            app:layout_constraintVertical_bias="0.32999998" android:text="912759"/>
     <Button
             android:text="Login"
             android:layout_width="wrap_content"
