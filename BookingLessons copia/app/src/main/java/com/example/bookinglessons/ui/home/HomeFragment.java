@@ -1,14 +1,12 @@
 package com.example.bookinglessons.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
@@ -17,6 +15,8 @@ import com.example.bookinglessons.Controller.AdapterListHome;
 import com.example.bookinglessons.Data.BookedLesson;
 import com.example.bookinglessons.Data.BookedLessonsViewModel;
 import com.example.bookinglessons.Data.UserViewModel;
+import com.example.bookinglessons.InfoOnLessonActivity;
+import com.example.bookinglessons.MainActivity;
 import com.example.bookinglessons.R;
 import com.example.bookinglessons.databinding.FragmentHomeBinding;
 
@@ -28,6 +28,7 @@ public class HomeFragment extends Fragment {
     private BookedLessonsViewModel bookedLessonsViewModel;
     private FragmentHomeBinding binding;
     private ListView listView;
+    Intent intent = null;
     private MutableLiveData<ArrayList<BookedLesson>> bookedLessons;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -41,6 +42,15 @@ public class HomeFragment extends Fragment {
 
         if(listView == null) {
             listView = root.findViewById(R.id.list_view_home);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    intent = new Intent(getActivity(), InfoOnLessonActivity.class);
+                    Log.d("In onItemClick", "Value: " + listView.getItemAtPosition(position));
+                    startActivity(intent);
+                }
+            });
         }
 
         bookedLessonsViewModel.getBookedLessons().observe(getViewLifecycleOwner(), bookedLessons -> {

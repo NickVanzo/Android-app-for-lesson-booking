@@ -13,7 +13,7 @@
               android:gravity="left"
               android:layout_weight="1"
               android:typeface="monospace"
-              android:height="40sp" tools:ignore="MissingConstraints"/>
+              android:height="40sp" tools:ignore="MissingConstraints" android:textAlignment="center"/>
 
     <TextView android:textColor="#020202"
               android:id="@+id/teacher"
@@ -23,7 +23,7 @@
               android:gravity="left"
               android:layout_weight="1"
               android:typeface="monospace"
-              android:height="40sp" tools:ignore="MissingConstraints"/>
+              android:height="40sp" tools:ignore="MissingConstraints" android:textAlignment="center"/>
 
     <TextView android:textColor="#000000"
               android:id="@+id/day"
@@ -33,5 +33,26 @@
               android:gravity="left"
               android:layout_weight="1"
               android:typeface="monospace"
-              android:height="40sp" tools:ignore="MissingConstraints"/>
+              android:height="40sp" tools:ignore="MissingConstraints" android:textAlignment="center"/>
+
+    <TextView android:textColor="#000000"
+              android:id="@+id/slot"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:gravity="left"
+              android:layout_weight="1"
+              android:typeface="monospace"
+              android:height="40sp" tools:ignore="MissingConstraints" android:textAlignment="center"/>
+
+    <TextView android:textColor="#000000"
+              android:id="@+id/subject"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textStyle="bold"
+              android:gravity="left"
+              android:layout_weight="1"
+              android:typeface="monospace"
+              android:height="40sp" tools:ignore="MissingConstraints" android:textAlignment="center"/>
+
 </LinearLayout>

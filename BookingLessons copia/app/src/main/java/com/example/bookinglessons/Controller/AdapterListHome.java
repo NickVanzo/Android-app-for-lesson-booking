@@ -40,6 +40,8 @@ public class AdapterListHome extends ArrayAdapter<BookedLesson> {
             TextView tt1 = (TextView) v.findViewById(R.id.user);
             TextView tt2 = (TextView) v.findViewById(R.id.teacher);
             TextView tt3 = (TextView) v.findViewById(R.id.day);
+            TextView tt4 = (TextView) v.findViewById(R.id.slot);
+            TextView tt5 = (TextView) v.findViewById(R.id.subject);
 
             if (tt1 != null) {
                 tt1.setText(p.getIdUser());
@@ -50,7 +52,35 @@ public class AdapterListHome extends ArrayAdapter<BookedLesson> {
             }
 
             if (tt3 != null) {
-                tt3.setText(p.getDay());
+                System.out.println(p.getDay());
+                switch (p.getDay()) {
+                    case "0":
+                        tt3.setText("LUN");
+                        break;
+                    case "1":
+                        tt3.setText("MAR");
+                        break;
+                    case "2":
+                        tt3.setText("MER");
+                        break;
+                    case "3":
+                        tt3.setText("GIO");
+                        break;
+                    case "4":
+                        tt3.setText("VEN");
+                        break;
+                    default:
+                        System.out.println("No valid value for day");
+                }
+
+            }
+
+            if (tt4 != null) {
+                tt4.setText(p.getSlot());
+            }
+
+            if (tt5 != null) {
+                tt5.setText(p.getSubject());
             }
         }
 
