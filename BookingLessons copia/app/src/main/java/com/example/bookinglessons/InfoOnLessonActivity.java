@@ -3,6 +3,7 @@ package com.example.bookinglessons;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -70,10 +71,24 @@ public class InfoOnLessonActivity extends AppCompatActivity {
 
         if(bookButton==null) {
             bookButton = findViewById(R.id.bookButton);
+            bookButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Log.d("in onClick", "You pressed the book button!");
+                }
+            });
         }
 
         if(deleteButton==null) {
             deleteButton = findViewById(R.id.deleteButton);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Log.d("in onClick", "You pressed the delete button!");
+                }
+            });
         }
     }
 
