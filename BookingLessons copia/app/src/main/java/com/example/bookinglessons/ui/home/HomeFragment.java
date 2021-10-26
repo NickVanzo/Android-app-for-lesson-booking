@@ -47,7 +47,15 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     intent = new Intent(getActivity(), InfoOnLessonActivity.class);
-                    Log.d("In onItemClick", "Value: " + listView.getItemAtPosition(position));
+                    BookedLesson bl = (BookedLesson) listView.getItemAtPosition(position);
+
+                    intent.putExtra("subject", bl.getSubject());
+                    intent.putExtra("teacher", bl.getIdTeacher());
+                    intent.putExtra("student", bl.getIdUser());
+                    intent.putExtra("day", bl.getDay());
+                    intent.putExtra("slot", bl.getSlot());
+                    intent.putExtra("source", "home");
+
                     startActivity(intent);
                 }
             });
