@@ -42,6 +42,7 @@ public class AdapterListHome extends ArrayAdapter<BookedLesson> {
             TextView tt3 = (TextView) v.findViewById(R.id.day);
             TextView tt4 = (TextView) v.findViewById(R.id.slot);
             TextView tt5 = (TextView) v.findViewById(R.id.subject);
+            TextView tt6 = (TextView) v.findViewById(R.id.state);
 
             if (tt1 != null) {
                 tt1.setText(p.getIdUser());
@@ -81,6 +82,10 @@ public class AdapterListHome extends ArrayAdapter<BookedLesson> {
 
             if (tt5 != null) {
                 tt5.setText(p.getSubject());
+            }
+
+            if( tt6 != null) {
+                tt6.setText(p.getStatus());
             }
         }
 

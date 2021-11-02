@@ -2,7 +2,7 @@
     <string name="app_name">BookingLessons</string>
     <string name="title_home">Le tue lezioni</string>
     <string name="title_dashboard">Prenota</string>
-    <string name="title_notifications">Lezioni frequentate</string>
+    <string name="title_notifications">Lezioni frequentate o cancellate</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

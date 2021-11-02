@@ -33,7 +33,6 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private ListView listView;
     Intent intent = null;
-    private MutableLiveData<ArrayList<BookedLesson>> bookedLessons;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,21 +45,17 @@ public class HomeFragment extends Fragment {
 
         if(listView == null) {
             listView = root.findViewById(R.id.list_view_home);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            listView.setOnItemClickListener((parent, view, position, id) -> {
+                intent = new Intent(getActivity(), InfoOnLessonActivity.class);
+                BookedLesson bl = (BookedLesson) listView.getItemAtPosition(position);
 
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    intent = new Intent(getActivity(), InfoOnLessonActivity.class);
-                    BookedLesson bl = (BookedLesson) listView.getItemAtPosition(position);
+                intent.putExtra("subject", bl.getSubject());
+                intent.putExtra("teacher", bl.getIdTeacher());
+                intent.putExtra("student", bl.getIdUser());
+                intent.putExtra("day", bl.getDay());
+                intent.putExtra("slot", bl.getSlot());
 
-                    intent.putExtra("subject", bl.getSubject());
-                    intent.putExtra("teacher", bl.getIdTeacher());
-                    intent.putExtra("student", bl.getIdUser());
-                    intent.putExtra("day", bl.getDay());
-                    intent.putExtra("slot", bl.getSlot());
-
-                    startActivity(intent);
-                }
+                startActivity(intent);
             });
         }
 
@@ -69,11 +64,6 @@ public class HomeFragment extends Fragment {
             AdapterListHome personalAdapter = new AdapterListHome(getContext(), R.layout.booked_lessons_list_item, bookedLessons);
             listView.setAdapter(personalAdapter);
         });
-
-//        final TextView textView = binding.textHome;
-//        userViewModel.getUser().observe(getViewLifecycleOwner(), item -> {
-//            textView.setText(item);
-//        });
         return root;
     }
 
@@ -81,7 +71,6 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d("in onResume", "Hello from your fragment");
-
     }
 
     @Override

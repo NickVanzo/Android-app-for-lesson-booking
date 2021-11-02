@@ -1,25 +1,17 @@
 package com.example.bookinglessons;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
-import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.bookinglessons.Controller.CustomRequest;
 import com.example.bookinglessons.Controller.MySingleton;
-import com.example.bookinglessons.Data.BookedLesson;
-import com.example.bookinglessons.Data.BookedLessonsViewModel;
-import com.example.bookinglessons.Data.Costants;
-import com.example.bookinglessons.Data.UserViewModel;
+import com.example.bookinglessons.Data.*;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -27,18 +19,15 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.bookinglessons.databinding.ActivityMainBinding;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 //Domanda da fare a Marino: ma come faccio a usare lo stesso backend per entrambi i progetti?
-public class MainActivity extends AppCompatActivity {
+public class MainActivity<T extends ViewModel> extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     String usernameOfLoggedUser;
@@ -48,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     Bundle extras;
     private UserViewModel viewModel;
     private BookedLessonsViewModel bookedLessonsViewModel;
+    private DeletedPastLessonsViewModel deletedPastLessonsViewModel;
     RequestQueue requestQueue;
 
     @Override
@@ -61,52 +51,60 @@ public class MainActivity extends AppCompatActivity {
         sessionId = extras.getString("key-session-id", "NoValue");
         showWelcomeToast(usernameOfLoggedUser);
         setViewModelUser(usernameOfLoggedUser, roleOfLoggedUser, surnameOfLoggedUser);
-        fetchBookedLessons(usernameOfLoggedUser);
+        fetchLessons("Da frequentare", bookedLessonsViewModel);
+        fetchLessons("Cancellata", deletedPastLessonsViewModel);
+        fetchLessons("Frequentata", deletedPastLessonsViewModel);
+
         setupUIElements();
         requestQueue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
     }
 
     /**
      * Fetch lessons from db and set the model view for the lessons booked
-     * @param username
      */
-    private void fetchBookedLessons(String username) {
-        String url = Costants.URL + "book/bookedLessonsForUser";
+    private <T extends ViewModel> void fetchLessons(String state, T v) {
+        String url = Costants.URL + "book/bookedLessonsForUser?state="+state;
         ArrayList<BookedLesson> bookedLessons = new ArrayList<>();
         JsonObjectRequest jsonCustomReq = new JsonObjectRequest(
                 url,
                 null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        int i = 0;
-                        try {
-                            JSONArray reservations = response.getJSONArray("reservations");
-                            while(i < reservations.length()) {
-                                JSONObject reservation = reservations.getJSONObject(i);
-                                String idUser = reservation.getString("idUser");
-                                String idTeacher = reservation.getString("idTeacher");
-                                String subject = reservation.getString("nameSubject");
-                                String day = reservation.getString("day");
-                                String slot = reservation.getString("slot");
-                                String status =reservation.getString("status");
+                response -> {
+                    int i = 0;
+                    try {
+                        JSONArray reservations = response.getJSONArray("reservations");
+                        while(i < reservations.length()) {
+                            JSONObject reservation = reservations.getJSONObject(i);
+                            String idUser = reservation.getString("idUser");
+                            String idTeacher = reservation.getString("idTeacher");
+                            String subject = reservation.getString("nameSubject");
+                            String day = reservation.getString("day");
+                            String slot = reservation.getString("slot");
+                            String status =reservation.getString("status");
 
-                                BookedLesson bookedLesson = new BookedLesson(idUser, idTeacher, slot, subject, day, status);
-                                bookedLessons.add(bookedLesson);
-                                i++;
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } finally {
-                            setViewModelLessons(bookedLessons);
+                            BookedLesson bookedLesson = new BookedLesson(idUser, idTeacher, slot, subject, day, status);
+                            bookedLessons.add(bookedLesson);
+                            i++;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } finally {
+                        switch (state) {
+                            case "Frequentata":
+                                deletedPastLessonsViewModel.setPastLessons(bookedLessons);
+                                break;
+                            case "Da frequentare":
+                                setViewModelLessons(bookedLessons);
+                                break;
+                            case "Cancellata":
+                                deletedPastLessonsViewModel.setDeletedLessons(bookedLessons);
+                                break;
+                            default:
+                                Log.d("in fetchLessons", "There was an error while fetching lessons");
                         }
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+                error -> {
 
-                    }
                 }
         );
         MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jsonCustomReq);
@@ -121,7 +119,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        fetchBookedLessons(usernameOfLoggedUser);
+        fetchLessons("Da frequentare", bookedLessonsViewModel);
+        fetchLessons("Cancellata", deletedPastLessonsViewModel);
+        fetchLessons("Frequentata", deletedPastLessonsViewModel);
     }
 
     private void setupUIElements() {
@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setViewModelUser(String usernameOfLoggedUser, String roleOfLoggedUser, String surnameOfLoggedUser) {
         viewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        deletedPastLessonsViewModel = new ViewModelProvider(this).get(DeletedPastLessonsViewModel.class);
 
         viewModel.setUser(usernameOfLoggedUser);
         viewModel.setRole(roleOfLoggedUser);

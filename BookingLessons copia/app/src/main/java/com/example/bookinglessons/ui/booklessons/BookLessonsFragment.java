@@ -26,7 +26,7 @@ public class BookLessonsFragment extends Fragment {
 
         final TextView textView = binding.textDashboard;
         userViewModel.getUser().observe(getViewLifecycleOwner(), item -> {
-            textView.setText(item);
+            textView.setText("DAHWDIADH");
         });
         return root;
     }
