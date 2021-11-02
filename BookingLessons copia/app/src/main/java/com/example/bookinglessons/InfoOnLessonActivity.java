@@ -34,7 +34,6 @@ public class InfoOnLessonActivity extends AppCompatActivity {
     private String day;
     private String slot;
     private String subject;
-    private String source;
     TextView teacherText;
     TextView subjectText;
     TextView slotText;
@@ -90,47 +89,29 @@ public class InfoOnLessonActivity extends AppCompatActivity {
 
         if(bookButton==null) {
             bookButton = findViewById(R.id.bookButton);
-            bookButton.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Log.d("in onClick", "You pressed the book button!");
-                }
-            });
+            bookButton.setOnClickListener(v -> Log.d("in onClick", "You pressed the book button!"));
         }
 
         if(deleteButton==null) {
             deleteButton = findViewById(R.id.deleteButton);
-            deleteButton.setOnClickListener(new View.OnClickListener() {
+            deleteButton.setOnClickListener(v -> {
 
-                @Override
-                public void onClick(View v) {
-
-                    String url = Costants.URL + "book/deleteBookedLesson?teacher="+idTeacher+"&subject="+subject+"&day="+day+"&slot="+slot+"&username="+idUser;
-                    JsonObjectRequest req = new JsonObjectRequest(
-                            Request.Method.POST,
-                            url,
-                            null,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    try {
-                                        showToast((String) response.get("Message"));
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.d("in onErrorResponse", ""+error.getMessage());
-                                }
+                String url = Costants.URL + "book/deleteBookedLesson?teacher="+idTeacher+"&subject="+subject+"&day="+day+"&slot="+slot;
+                JsonObjectRequest req = new JsonObjectRequest(
+                        Request.Method.POST,
+                        url,
+                        null,
+                        response -> {
+                            try {
+                                Log.d("in onClick deletion", "Reservation deleted!");
+                                showToast((String) response.get("message"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                    );
-                    MySingleton.getInstance(getApplicationContext()).addToRequestQueue(req);
-                }
-
+                        },
+                        error -> Log.d("in onErrorResponse", ""+error.getMessage())
+                );
+                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(req);
             });
         }
     }
@@ -149,7 +130,6 @@ public class InfoOnLessonActivity extends AppCompatActivity {
             day = extras.getString("day");
             slot = extras.getString("slot");
             subject = extras.getString("subject");
-            source = extras.getString("source");
         }
     }
 

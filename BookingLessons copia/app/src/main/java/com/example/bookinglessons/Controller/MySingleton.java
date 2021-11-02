@@ -2,6 +2,7 @@ package com.example.bookinglessons.Controller;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.util.LruCache;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,6 +38,7 @@ public class MySingleton {
 
     public static synchronized MySingleton getInstance(Context context) {
         if (instance == null) {
+            Log.d("in getInstance", "New instance was called");
             instance = new MySingleton(context);
         }
         return instance;

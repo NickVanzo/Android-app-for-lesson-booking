@@ -58,7 +58,6 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("student", bl.getIdUser());
                     intent.putExtra("day", bl.getDay());
                     intent.putExtra("slot", bl.getSlot());
-                    intent.putExtra("source", "home");
 
                     startActivity(intent);
                 }

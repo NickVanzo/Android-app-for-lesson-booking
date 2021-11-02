@@ -19,6 +19,8 @@ import com.example.bookinglessons.Data.UserViewModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -31,17 +33,19 @@ public class LoginActivity extends AppCompatActivity  {
     Intent intent = null;
     EditText usernameText;
     EditText passwordText;
-    RequestQueue mRequestQueue;
+    RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        CookieManager cookieManager = new CookieManager();
+        CookieHandler.setDefault(cookieManager);
         intent = new Intent(this, MainActivity.class);
         setUpUIElements();
         Log.d("In login activity", "This is the url provided" + Costants.URL);
         // initialize the singleton
-        mRequestQueue = Volley.newRequestQueue(this);
+        requestQueue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
     }
 
 
@@ -72,10 +76,8 @@ public class LoginActivity extends AppCompatActivity  {
                     Toast.makeText(getApplicationContext(),
                             error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
-        // Access the RequestQueue through your singleton class.
 
-        MySingleton.getInstance(this).addToRequestQueue(jsonObjReq);
-
+        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jsonObjReq);
     }
 
     private void showErrorMessage(String error) {

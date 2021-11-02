@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     Bundle extras;
     private UserViewModel viewModel;
     private BookedLessonsViewModel bookedLessonsViewModel;
+    RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setViewModelUser(usernameOfLoggedUser, roleOfLoggedUser, surnameOfLoggedUser);
         fetchBookedLessons(usernameOfLoggedUser);
         setupUIElements();
+        requestQueue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
     }
 
     /**
@@ -70,36 +73,33 @@ public class MainActivity extends AppCompatActivity {
     private void fetchBookedLessons(String username) {
         String url = Costants.URL + "book/bookedLessonsForUser";
         ArrayList<BookedLesson> bookedLessons = new ArrayList<>();
-        CustomRequest jsonCustomReq = new CustomRequest(
-                Request.Method.GET,
+        JsonObjectRequest jsonCustomReq = new JsonObjectRequest(
                 url,
                 null,
-                sessionId,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                            Log.d("in onResponse", response.toString());
-//                        int i = 0;
-//                        try {
-//                            JSONArray reservations = response.getJSONArray("reservations");
-//                            while(i < reservations.length()) {
-//                                JSONObject reservation = reservations.getJSONObject(i);
-//                                String idUser = reservation.getString("idUser");
-//                                String idTeacher = reservation.getString("idTeacher");
-//                                String subject = reservation.getString("nameSubject");
-//                                String day = reservation.getString("day");
-//                                String slot = reservation.getString("slot");
-//                                String status =reservation.getString("status");
-//
-//                                BookedLesson bookedLesson = new BookedLesson(idUser, idTeacher, slot, subject, day, status);
-//                                bookedLessons.add(bookedLesson);
-//                                i++;
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        } finally {
-//                            setViewModelLessons(bookedLessons);
-//                        }
+                        int i = 0;
+                        try {
+                            JSONArray reservations = response.getJSONArray("reservations");
+                            while(i < reservations.length()) {
+                                JSONObject reservation = reservations.getJSONObject(i);
+                                String idUser = reservation.getString("idUser");
+                                String idTeacher = reservation.getString("idTeacher");
+                                String subject = reservation.getString("nameSubject");
+                                String day = reservation.getString("day");
+                                String slot = reservation.getString("slot");
+                                String status =reservation.getString("status");
+
+                                BookedLesson bookedLesson = new BookedLesson(idUser, idTeacher, slot, subject, day, status);
+                                bookedLessons.add(bookedLesson);
+                                i++;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } finally {
+                            setViewModelLessons(bookedLessons);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-        MySingleton.getInstance(this).addToRequestQueue(jsonCustomReq);
+        MySingleton.getInstance(this.getApplicationContext()).addToRequestQueue(jsonCustomReq);
     }
 
     private void showWelcomeToast(String username) {
