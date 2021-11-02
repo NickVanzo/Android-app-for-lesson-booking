@@ -1,7 +1,9 @@
 package com.example.bookinglessons.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,8 @@ import com.example.bookinglessons.R;
 import com.example.bookinglessons.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class HomeFragment extends Fragment {
 
@@ -61,6 +65,7 @@ public class HomeFragment extends Fragment {
             });
         }
 
+
         bookedLessonsViewModel.getBookedLessons().observe(getViewLifecycleOwner(), bookedLessons -> {
             AdapterListHome personalAdapter = new AdapterListHome(getContext(), R.layout.booked_lessons_list_item, bookedLessons);
             listView.setAdapter(personalAdapter);
@@ -71,6 +76,13 @@ public class HomeFragment extends Fragment {
 //            textView.setText(item);
 //        });
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("in onResume", "Hello from your fragment");
+
     }
 
     @Override

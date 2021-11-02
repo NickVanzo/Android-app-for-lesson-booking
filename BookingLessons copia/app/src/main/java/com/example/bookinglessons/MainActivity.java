@@ -1,15 +1,19 @@
 package com.example.bookinglessons;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.bookinglessons.Controller.CustomRequest;
 import com.example.bookinglessons.Controller.MySingleton;
 import com.example.bookinglessons.Data.BookedLesson;
 import com.example.bookinglessons.Data.BookedLessonsViewModel;
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     String usernameOfLoggedUser;
     String surnameOfLoggedUser;
     String roleOfLoggedUser;
+    String sessionId;
     Bundle extras;
     private UserViewModel viewModel;
     private BookedLessonsViewModel bookedLessonsViewModel;
@@ -49,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         extras = getIntent().getExtras();
         usernameOfLoggedUser = extras.getString("key-username", "NoValue");
-        surnameOfLoggedUser = extras.getString("surname", "NoValue");
-        roleOfLoggedUser = extras.getString("role", "NoValue");
+        surnameOfLoggedUser = extras.getString("key-surname", "NoValue");
+        roleOfLoggedUser = extras.getString("key-role", "NoValue");
+        sessionId = extras.getString("key-session-id", "NoValue");
         showWelcomeToast(usernameOfLoggedUser);
         setViewModelUser(usernameOfLoggedUser, roleOfLoggedUser, surnameOfLoggedUser);
         fetchBookedLessons(usernameOfLoggedUser);
@@ -62,34 +68,38 @@ public class MainActivity extends AppCompatActivity {
      * @param username
      */
     private void fetchBookedLessons(String username) {
-        String url = Costants.URL + "book/bookedLessons?id="+username+"";
-        Log.d("In fetchBookedLessons", "Username" + username);
+        String url = Costants.URL + "book/bookedLessonsForUser";
         ArrayList<BookedLesson> bookedLessons = new ArrayList<>();
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+        CustomRequest jsonCustomReq = new CustomRequest(
+                Request.Method.GET,
                 url,
-                new Response.Listener<JSONArray>() {
+                null,
+                sessionId,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-
-                        int i = 0;
-                        while(i < response.length()) {
-                            try {
-                                JSONObject reservation = response.getJSONObject(i);
-                                String idUser = reservation.getString("idUser");
-                                String idTeacher = reservation.getString("idTeacher");
-                                String subject = reservation.getString("nameSubject");
-                                String day = reservation.getString("day");
-                                String slot = reservation.getString("slot");
-                                String status =reservation.getString("status");
-
-                                BookedLesson bookedLesson = new BookedLesson(idUser, idTeacher, slot, subject, day, status);
-                                bookedLessons.add(bookedLesson);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            i++;
-                        }
-                        setViewModelLessons(bookedLessons);
+                    public void onResponse(JSONObject response) {
+                            Log.d("in onResponse", response.toString());
+//                        int i = 0;
+//                        try {
+//                            JSONArray reservations = response.getJSONArray("reservations");
+//                            while(i < reservations.length()) {
+//                                JSONObject reservation = reservations.getJSONObject(i);
+//                                String idUser = reservation.getString("idUser");
+//                                String idTeacher = reservation.getString("idTeacher");
+//                                String subject = reservation.getString("nameSubject");
+//                                String day = reservation.getString("day");
+//                                String slot = reservation.getString("slot");
+//                                String status =reservation.getString("status");
+//
+//                                BookedLesson bookedLesson = new BookedLesson(idUser, idTeacher, slot, subject, day, status);
+//                                bookedLessons.add(bookedLesson);
+//                                i++;
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        } finally {
+//                            setViewModelLessons(bookedLessons);
+//                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -99,12 +109,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-        MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+        MySingleton.getInstance(this).addToRequestQueue(jsonCustomReq);
     }
 
     private void showWelcomeToast(String username) {
         Toast toast = Toast.makeText(getApplicationContext(), "You are logged as: " + username, Toast.LENGTH_SHORT*2);
         toast.show();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchBookedLessons(usernameOfLoggedUser);
     }
 
     private void setupUIElements() {

@@ -1,14 +1,31 @@
 package com.example.bookinglessons;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.bookinglessons.Controller.MySingleton;
+import com.example.bookinglessons.Data.BookedLessonsViewModel;
+import com.example.bookinglessons.Data.Costants;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class InfoOnLessonActivity extends AppCompatActivity {
 
@@ -24,11 +41,13 @@ public class InfoOnLessonActivity extends AppCompatActivity {
     TextView dayText;
     Button deleteButton;
     Button bookButton;
+    BookedLessonsViewModel bookedLesson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_on_lesson);
+        bookedLesson = new ViewModelProvider(this).get(BookedLessonsViewModel.class);
         getParametersPassedAsExtras();
         setUpUI();
     }
@@ -86,10 +105,40 @@ public class InfoOnLessonActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    Log.d("in onClick", "You pressed the delete button!");
+
+                    String url = Costants.URL + "book/deleteBookedLesson?teacher="+idTeacher+"&subject="+subject+"&day="+day+"&slot="+slot+"&username="+idUser;
+                    JsonObjectRequest req = new JsonObjectRequest(
+                            Request.Method.POST,
+                            url,
+                            null,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try {
+                                        showToast((String) response.get("Message"));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.d("in onErrorResponse", ""+error.getMessage());
+                                }
+                            }
+                    );
+                    MySingleton.getInstance(getApplicationContext()).addToRequestQueue(req);
                 }
+
             });
         }
+    }
+
+    private void showToast(String msg) {
+        Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT*2);
+        toast.show();
+        finish();
     }
 
     private void getParametersPassedAsExtras() {
