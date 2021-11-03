@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity  {
         CookieHandler.setDefault(cookieManager);
         intent = new Intent(this, MainActivity.class);
         setUpUIElements();
-        Log.d("In login activity", "This is the url provided" + Costants.URL);
         // initialize the singleton
         requestQueue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
     }
@@ -60,9 +59,7 @@ public class LoginActivity extends AppCompatActivity  {
                 null,
                 response -> {
 
-                    Log.d("In onResponse", ""+response);
                     try {
-                        Log.d("In callServer", "Object returned: " +response.toString());
                         intent.putExtra("key-username", usernameText.getText().toString());
                         intent.putExtra("key-role", response.getJSONObject("user").getString("role"));
                         intent.putExtra("key-surname", response.getJSONObject("user").getString("surname"));

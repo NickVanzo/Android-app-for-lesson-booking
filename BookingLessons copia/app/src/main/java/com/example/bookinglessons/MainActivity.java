@@ -153,7 +153,6 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
         viewModel.setRole(roleOfLoggedUser);
         viewModel.setSurname(surnameOfLoggedUser);
         viewModel.getUser().observe(this, username -> {
-            Log.d("In onCreate", "Share data: " + username);
         });
     }
 
@@ -165,10 +164,6 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
         bookedLessonsViewModel = new ViewModelProvider(this).get(BookedLessonsViewModel.class);
 
         bookedLessonsViewModel.setBookedLessons(lessons);
-
-        bookedLessonsViewModel.getBookedLessons().observe(this, bookedLessons -> {
-            Log.d("In getBookedLessons", "Lessons: " + bookedLessons.size());
-        });
     }
 
 }
