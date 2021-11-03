@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fattoriale</title>
+</head>
+<body>
+    <input type="number" id="input"/>
+    <button onclick="fattoriale()">Calculate</button>
+    <button onclick='fattorialeRicorsivo()'>Calculate</button>
+<script>
+    function fattoriale() {
+        let n = document.getElementById("input").value;
+        if (!validateInput(n)) {
+          alert("Input must be valid!");
+          return;
+        }
+        let i = 1;
+        let result = 1;
+        while(i <= n) {
+            result = result * i;
+            i++;
+        }
+        alert(result);
+    }
+    function fattorialeRicorsivo() {
+        let n = document.getElementById("input").value;
+        if (!validateInput(n)) {
+            alert("Input must be valid!");
+            return;
+        }
+        let total = ricorsione(n);
+        alert(total);
+    }
+
+    function ricorsione(n) {
+        if(n==0) {
+            return 1;
+        } else {
+            return n*ricorsione(n-1);
+        }
+    }
+    function validateInput(n) {
+        if(n>=0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

@@ -63,7 +63,7 @@ public class InfoOnLessonActivity extends AppCompatActivity {
         if(dayText==null) {
             dayText = findViewById(R.id.showDay);
             switch (day) {
-                case "0":
+                case "1":
                     dayText.setText("Giorno: lunedi'");
                     break;
                 case "2":
@@ -89,7 +89,25 @@ public class InfoOnLessonActivity extends AppCompatActivity {
 
         if(bookButton==null) {
             bookButton = findViewById(R.id.bookButton);
-            bookButton.setOnClickListener(v -> Log.d("in onClick", "You pressed the book button!"));
+            bookButton.setOnClickListener(v -> {
+                String url = Costants.URL + "book/addBookedLesson?teacher="+idTeacher+"&subject="+subject+"&day="+day+"&slot="+slot;
+                JsonObjectRequest req = new JsonObjectRequest(
+                        Request.Method.POST,
+                        url,
+                        null,
+                        response -> {
+                            try {
+                                showToast((String) response.getString("message"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        },
+                        error -> {
+
+                        }
+                );
+                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(req);
+            });
         }
 
         if(deleteButton==null) {
@@ -104,7 +122,7 @@ public class InfoOnLessonActivity extends AppCompatActivity {
                         response -> {
                             try {
                                 Log.d("in onClick deletion", "Reservation deleted!");
-                                showToast((String) response.get("message"));
+                                showToast((String) response.getString("message"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -119,7 +137,6 @@ public class InfoOnLessonActivity extends AppCompatActivity {
     private void showToast(String msg) {
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT*2);
         toast.show();
-        finish();
     }
 
     private void getParametersPassedAsExtras() {

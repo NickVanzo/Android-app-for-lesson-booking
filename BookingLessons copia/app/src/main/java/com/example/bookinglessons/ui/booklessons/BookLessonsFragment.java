@@ -1,5 +1,6 @@
 package com.example.bookinglessons.ui.booklessons;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.bookinglessons.Controller.MySingleton;
 import com.example.bookinglessons.Data.Costants;
 import com.example.bookinglessons.Data.UserViewModel;
+import com.example.bookinglessons.ListOfAvailableLessons;
 import com.example.bookinglessons.R;
 import com.example.bookinglessons.databinding.FragmentDashboardBinding;
 import com.example.bookinglessons.databinding.FragmentNotificationsBinding;
@@ -30,6 +33,7 @@ public class BookLessonsFragment extends Fragment implements AdapterView.OnItemS
     private FragmentDashboardBinding binding;
     Spinner spinner;
     String subjectSelected = "";
+    Button button;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +42,15 @@ public class BookLessonsFragment extends Fragment implements AdapterView.OnItemS
         View root = binding.getRoot();
 
         spinner = root.findViewById(R.id.spinner_for_subject);
+        button = root.findViewById(R.id.confirm_form_button);
+        Log.d("button" , "button"  +button);
+        button.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), ListOfAvailableLessons.class);
+            i.putExtra("subject", subjectSelected);
+            i.putExtra("day", binding.textDays.getText().toString());
+            startActivity(i);
+        });
+
         fetchSubjects();
 
         return root;

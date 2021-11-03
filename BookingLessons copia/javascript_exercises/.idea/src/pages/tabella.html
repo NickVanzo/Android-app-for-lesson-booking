@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p id="tabella">Ti faccio vedere la tabella</p>
+    <button id="t" onclick="trasformaTabella()"></button>
+    <script>
+        function trasformaTabella() {
+            let table = document.createElement("table");
+            table.style.width = '100px';
+            table.style.border = '1px solid black';
+            for(let i = 0; i < 20; i++) {
+                const tr =  table.insertRow()
+                for(let j = 0; j < 10; j++) {
+                    const td = tr.insertCell();
+                    td.appendChild(document.createTextNode(`Cell I${i}/J${j}`));
+                    td.style.border = '1px solid black';
+                    if (i === 1 && j === 1) {
+                        td.setAttribute('rowSpan', '2');
+                    }
+                }
+            }
+
+            document.getElementById("tabella").innerHTML = table.innerHTML
+        }
+    </script>
+</body>
+</html>
