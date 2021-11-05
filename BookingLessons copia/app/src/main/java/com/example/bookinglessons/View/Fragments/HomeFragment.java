@@ -1,30 +1,21 @@
-package com.example.bookinglessons.ui.home;
+package com.example.bookinglessons.View.Fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.bookinglessons.Controller.AdapterListHome;
-import com.example.bookinglessons.Data.BookedLesson;
-import com.example.bookinglessons.Data.BookedLessonsViewModel;
-import com.example.bookinglessons.Data.UserViewModel;
-import com.example.bookinglessons.InfoOnLessonActivity;
-import com.example.bookinglessons.MainActivity;
+import com.example.bookinglessons.Adapters.AdapterListHome;
+import com.example.bookinglessons.Model.BookedLesson;
+import com.example.bookinglessons.Model.ViewModels.BookedLessonsViewModel;
+import com.example.bookinglessons.Model.ViewModels.UserViewModel;
+import com.example.bookinglessons.View.Activities.InfoOnLessonActivity;
 import com.example.bookinglessons.R;
 import com.example.bookinglessons.databinding.FragmentHomeBinding;
-
-import java.util.ArrayList;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 public class HomeFragment extends Fragment {
 

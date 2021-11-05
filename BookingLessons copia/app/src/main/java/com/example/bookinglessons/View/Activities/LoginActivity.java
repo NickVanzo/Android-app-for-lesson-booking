@@ -1,30 +1,21 @@
-package com.example.bookinglessons;
+package com.example.bookinglessons.View.Activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.*;
 import com.android.volley.toolbox.*;
-import com.example.bookinglessons.Controller.CustomRequest;
-import com.example.bookinglessons.Controller.MySingleton;
-import com.example.bookinglessons.Data.Costants;
-import com.example.bookinglessons.Data.UserViewModel;
+import com.example.bookinglessons.Network.MySingleton;
+import com.example.bookinglessons.Model.ViewModels.UserViewModel;
+import com.example.bookinglessons.R;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity  {
 
@@ -52,13 +43,12 @@ public class LoginActivity extends AppCompatActivity  {
         RequestQueue queue = Volley.newRequestQueue(this);
         String username = usernameText.getText().toString();
         String psw = passwordText.getText().toString();
-        String url = Costants.URL + "auth/login?id="+username+"&psw="+psw+"";
+        String url = getResources().getString(R.string.servlet_url) + "auth/login?id="+username+"&psw="+psw+"";
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 url,
                 null,
                 response -> {
-
                     try {
                         intent.putExtra("key-username", usernameText.getText().toString());
                         intent.putExtra("key-role", response.getJSONObject("user").getString("role"));

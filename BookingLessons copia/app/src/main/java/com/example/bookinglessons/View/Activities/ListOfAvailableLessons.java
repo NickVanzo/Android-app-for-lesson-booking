@@ -1,21 +1,17 @@
-package com.example.bookinglessons;
+package com.example.bookinglessons.View.Activities;
 
 import android.content.Intent;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.bookinglessons.Controller.AdapterListAvailableLessons;
-import com.example.bookinglessons.Controller.MySingleton;
-import com.example.bookinglessons.Data.BookedLesson;
-import com.example.bookinglessons.Data.Costants;
-import com.google.gson.JsonArray;
+import com.example.bookinglessons.Adapters.AdapterListAvailableLessons;
+import com.example.bookinglessons.Network.MySingleton;
+import com.example.bookinglessons.Model.BookedLesson;
+import com.example.bookinglessons.R;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -57,7 +53,7 @@ public class ListOfAvailableLessons extends AppCompatActivity {
     }
 
     private void fetchTeachersForSubject(String subject) {
-        String url = Costants.URL + "subject/filterTeachers?subject="+subject+"&day="+day;
+        String url = getResources().getString(R.string.servlet_url) + "subject/filterTeachers?subject="+subject+"&day="+day;
 
         JsonObjectRequest jsonCustomReq = new JsonObjectRequest(
                 url,
@@ -66,10 +62,11 @@ public class ListOfAvailableLessons extends AppCompatActivity {
                     try {
                         JSONArray teachersFetched = response.getJSONArray("teachers");
                         int i = 0;
+                        Log.d("in fetchTeachers", teachersFetched.toString());
                         while(i < teachersFetched.length()) {
                             fetchAvailableSlots(teachersFetched.getJSONObject(i).get("teacherID").toString());
                             i++;
-                        }
+                     }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -82,7 +79,8 @@ public class ListOfAvailableLessons extends AppCompatActivity {
     }
 
     private void fetchAvailableSlots(String teacher) {
-        String url = Costants.URL + "book/getFreeSlotsForTeacher?teacher="+teacher+"&day="+day;
+        String url = getResources().getString(R.string.servlet_url) + "book/getFreeSlotsForTeacher?teacher="+teacher+"&day="+day;
+        Log.d("in fetchAvailable", "TEACHER"+teacher);
 
         JsonObjectRequest jsonCustomReq = new JsonObjectRequest(
                 url,

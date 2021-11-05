@@ -1,4 +1,4 @@
-package com.example.bookinglessons.Data;
+package com.example.bookinglessons.Model.ViewModels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

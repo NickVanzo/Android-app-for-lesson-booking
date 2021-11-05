@@ -1,4 +1,4 @@
-package com.example.bookinglessons.ui.booklessons;
+package com.example.bookinglessons.View.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,21 +12,15 @@ import android.widget.Button;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.bookinglessons.Controller.MySingleton;
-import com.example.bookinglessons.Data.Costants;
-import com.example.bookinglessons.Data.UserViewModel;
-import com.example.bookinglessons.ListOfAvailableLessons;
+import com.example.bookinglessons.Network.MySingleton;
+import com.example.bookinglessons.View.Activities.ListOfAvailableLessons;
 import com.example.bookinglessons.R;
 import com.example.bookinglessons.databinding.FragmentDashboardBinding;
-import com.example.bookinglessons.databinding.FragmentNotificationsBinding;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class BookLessonsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -66,7 +60,7 @@ public class BookLessonsFragment extends Fragment implements AdapterView.OnItemS
     }
 
     private void fetchSubjects() {
-        String url = Costants.URL + "subject/getSubjects";
+        String url = getResources().getString(R.string.servlet_url) + "subject/getSubjects";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 url,

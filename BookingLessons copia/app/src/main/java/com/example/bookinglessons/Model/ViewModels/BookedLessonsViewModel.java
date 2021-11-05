@@ -1,7 +1,8 @@
-package com.example.bookinglessons.Data;
+package com.example.bookinglessons.Model.ViewModels;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import com.example.bookinglessons.Model.BookedLesson;
 
 import java.util.ArrayList;
 

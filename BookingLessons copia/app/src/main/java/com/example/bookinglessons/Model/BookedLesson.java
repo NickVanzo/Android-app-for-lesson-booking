@@ -1,4 +1,4 @@
-package com.example.bookinglessons.Data;
+package com.example.bookinglessons.Model;
 
 public class BookedLesson {
     private String idUser;

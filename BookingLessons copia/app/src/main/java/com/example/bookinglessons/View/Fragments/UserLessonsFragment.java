@@ -1,28 +1,23 @@
-package com.example.bookinglessons.ui.userlessons;
+package com.example.bookinglessons.View.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.bookinglessons.Controller.AdapterListHome;
-import com.example.bookinglessons.Data.BookedLesson;
-import com.example.bookinglessons.Data.BookedLessonsViewModel;
-import com.example.bookinglessons.Data.DeletedPastLessonsViewModel;
-import com.example.bookinglessons.Data.UserViewModel;
-import com.example.bookinglessons.InfoOnLessonActivity;
+import com.example.bookinglessons.Adapters.AdapterListHome;
+import com.example.bookinglessons.Model.BookedLesson;
+import com.example.bookinglessons.Model.ViewModels.BookedLessonsViewModel;
+import com.example.bookinglessons.Model.ViewModels.DeletedPastLessonsViewModel;
+import com.example.bookinglessons.Model.ViewModels.UserViewModel;
 import com.example.bookinglessons.R;
 import com.example.bookinglessons.databinding.FragmentNotificationsBinding;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class UserLessonsFragment extends Fragment {
 

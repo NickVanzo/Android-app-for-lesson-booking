@@ -14,9 +14,9 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.BookingLessons"
             android:usesCleartextTraffic="true">
-        <activity android:name=".ListOfAvailableLessons">
+        <activity android:name=".View.Activities.ListOfAvailableLessons">
         </activity>
-        <activity android:name=".InfoOnLessonActivity">
+        <activity android:name=".View.Activities.InfoOnLessonActivity">
         </activity>
 
         <uses-library
@@ -24,7 +24,7 @@
                 android:required="false"/>
 
         <activity
-                android:name=".LoginActivity"
+                android:name=".View.Activities.LoginActivity"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".MainActivity"
+                android:name=".View.Activities.MainActivity"
                 android:exported="true"
                 android:label="@string/app_name">
         </activity>

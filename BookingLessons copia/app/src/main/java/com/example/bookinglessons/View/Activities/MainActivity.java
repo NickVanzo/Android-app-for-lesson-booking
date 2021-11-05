@@ -1,17 +1,18 @@
-package com.example.bookinglessons;
+package com.example.bookinglessons.View.Activities;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.bookinglessons.Controller.MySingleton;
-import com.example.bookinglessons.Data.*;
+import com.example.bookinglessons.Model.ViewModels.BookedLessonsViewModel;
+import com.example.bookinglessons.Model.ViewModels.DeletedPastLessonsViewModel;
+import com.example.bookinglessons.Model.ViewModels.UserViewModel;
+import com.example.bookinglessons.Network.MySingleton;
+import com.example.bookinglessons.Model.*;
+import com.example.bookinglessons.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -23,7 +24,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 //Domanda da fare a Marino: ma come faccio a usare lo stesso backend per entrambi i progetti?
@@ -63,7 +63,7 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
      * Fetch lessons from db and set the model view for the lessons booked
      */
     private <T extends ViewModel> void fetchLessons(String state, T v) {
-        String url = Costants.URL + "book/bookedLessonsForUser?state="+state;
+        String url = getResources().getString(R.string.servlet_url) + "book/bookedLessonsForUser?state="+state;
         ArrayList<BookedLesson> bookedLessons = new ArrayList<>();
         JsonObjectRequest jsonCustomReq = new JsonObjectRequest(
                 url,

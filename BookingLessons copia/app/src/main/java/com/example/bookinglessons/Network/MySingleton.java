@@ -1,4 +1,4 @@
-package com.example.bookinglessons.Controller;
+package com.example.bookinglessons.Network;
 
 import android.content.Context;
 import android.graphics.Bitmap;

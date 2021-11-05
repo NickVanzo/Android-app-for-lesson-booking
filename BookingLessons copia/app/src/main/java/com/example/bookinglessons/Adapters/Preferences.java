@@ -1,4 +1,4 @@
-package com.example.bookinglessons.Controller;
+package com.example.bookinglessons.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,13 +1,12 @@
-package com.example.bookinglessons.Controller;
+package com.example.bookinglessons.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
-import com.example.bookinglessons.Data.BookedLesson;
+import com.example.bookinglessons.Model.BookedLesson;
 import com.example.bookinglessons.R;
 
 import java.util.List;

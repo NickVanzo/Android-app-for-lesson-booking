@@ -1,31 +1,18 @@
-package com.example.bookinglessons;
+package com.example.bookinglessons.View.Activities;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.bookinglessons.Controller.MySingleton;
-import com.example.bookinglessons.Data.BookedLessonsViewModel;
-import com.example.bookinglessons.Data.Costants;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import org.json.JSONArray;
+import com.example.bookinglessons.Network.MySingleton;
+import com.example.bookinglessons.Model.ViewModels.BookedLessonsViewModel;
+import com.example.bookinglessons.R;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class InfoOnLessonActivity extends AppCompatActivity {
 
@@ -90,7 +77,7 @@ public class InfoOnLessonActivity extends AppCompatActivity {
         if(bookButton==null) {
             bookButton = findViewById(R.id.bookButton);
             bookButton.setOnClickListener(v -> {
-                String url = Costants.URL + "book/addBookedLesson?teacher="+idTeacher+"&subject="+subject+"&day="+day+"&slot="+slot;
+                String url = getResources().getString(R.string.servlet_url) + "book/addBookedLesson?teacher="+idTeacher+"&subject="+subject+"&day="+day+"&slot="+slot;
                 JsonObjectRequest req = new JsonObjectRequest(
                         Request.Method.POST,
                         url,
@@ -114,7 +101,7 @@ public class InfoOnLessonActivity extends AppCompatActivity {
             deleteButton = findViewById(R.id.deleteButton);
             deleteButton.setOnClickListener(v -> {
 
-                String url = Costants.URL + "book/deleteBookedLesson?teacher="+idTeacher+"&subject="+subject+"&day="+day+"&slot="+slot;
+                String url = getResources().getString(R.string.servlet_url) + "book/deleteBookedLesson?teacher="+idTeacher+"&subject="+subject+"&day="+day+"&slot="+slot;
                 JsonObjectRequest req = new JsonObjectRequest(
                         Request.Method.POST,
                         url,
