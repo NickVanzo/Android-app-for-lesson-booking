@@ -1,6 +1,6 @@
 package com.example.bookinglessons.Model;
 
-public class BookedLesson {
+public class Lesson {
     private String idUser;
     private String idTeacher;
     private String slot;
@@ -8,7 +8,7 @@ public class BookedLesson {
     private String day;
     private String status;
 
-    public BookedLesson(String idUser, String idTeacher, String slot, String subject, String day, String status) {
+    public Lesson(String idUser, String idTeacher, String slot, String subject, String day, String status) {
         this.idUser = idUser;
         this.idTeacher = idTeacher;
         this.slot = slot;
@@ -19,7 +19,7 @@ public class BookedLesson {
 
     @Override
     public String toString() {
-        return "BookedLesson{" +
+        return "Lesson{" +
                 "idUser='" + idUser + '\'' +
                 ", idTeacher='" + idTeacher + '\'' +
                 ", slot='" + slot + '\'' +

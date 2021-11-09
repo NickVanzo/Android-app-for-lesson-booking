@@ -33,7 +33,14 @@
             android:text="Login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/loginButton"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.69"/>
+    <Button
+            android:text="Continue as guest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/button_login_as_guest"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="0.77"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

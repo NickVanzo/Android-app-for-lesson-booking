@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.bookinglessons.Adapters.AdapterListHome;
-import com.example.bookinglessons.Model.BookedLesson;
+import com.example.bookinglessons.Model.Lesson;
 import com.example.bookinglessons.Model.ViewModels.BookedLessonsViewModel;
 import com.example.bookinglessons.Model.ViewModels.UserViewModel;
 import com.example.bookinglessons.View.Activities.InfoOnLessonActivity;
@@ -38,7 +38,7 @@ public class HomeFragment extends Fragment {
             listView = root.findViewById(R.id.list_view_home);
             listView.setOnItemClickListener((parent, view, position, id) -> {
                 intent = new Intent(getActivity(), InfoOnLessonActivity.class);
-                BookedLesson bl = (BookedLesson) listView.getItemAtPosition(position);
+                Lesson bl = (Lesson) listView.getItemAtPosition(position);
 
                 intent.putExtra("subject", bl.getSubject());
                 intent.putExtra("teacher", bl.getIdTeacher());

@@ -6,17 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import com.example.bookinglessons.Model.BookedLesson;
+import com.example.bookinglessons.Model.Lesson;
 import com.example.bookinglessons.R;
 
 import java.util.List;
 
-public class AdapterListHome extends ArrayAdapter<BookedLesson> {
+public class AdapterListHome extends ArrayAdapter<Lesson> {
 
     private int resourceLayout;
     private Context mContext;
 
-    public AdapterListHome(Context context, int resource, List<BookedLesson> items) {
+    public AdapterListHome(Context context, int resource, List<Lesson> items) {
         super(context, resource, items);
         this.resourceLayout = resource;
         this.mContext = context;
@@ -33,7 +33,7 @@ public class AdapterListHome extends ArrayAdapter<BookedLesson> {
             v = vi.inflate(resourceLayout, null);
         }
 
-        BookedLesson p = getItem(position);
+        Lesson p = getItem(position);
 
         if (p != null) {
             TextView tt1 = (TextView) v.findViewById(R.id.user);

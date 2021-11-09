@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.bookinglessons.Adapters.AdapterListAvailableLessons;
 import com.example.bookinglessons.Network.MySingleton;
-import com.example.bookinglessons.Model.BookedLesson;
+import com.example.bookinglessons.Model.Lesson;
 import com.example.bookinglessons.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,7 +20,7 @@ public class ListOfAvailableLessons extends AppCompatActivity {
     private String subject = "";
     private String day = "";
     private ListView listView;
-    private ArrayList<BookedLesson> availableLessons = new ArrayList<>();
+    private ArrayList<Lesson> availableLessons = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class ListOfAvailableLessons extends AppCompatActivity {
             listView = findViewById(R.id.list_available_lessons);
             listView.setOnItemClickListener((parent, view, position, id) -> {
                 Intent intent = new Intent(this, InfoOnLessonActivity.class);
-                BookedLesson bl = (BookedLesson) listView.getItemAtPosition(position);
+                Lesson bl = (Lesson) listView.getItemAtPosition(position);
 
                 intent.putExtra("subject", bl.getSubject());
                 intent.putExtra("teacher", bl.getIdTeacher());
@@ -91,7 +91,7 @@ public class ListOfAvailableLessons extends AppCompatActivity {
                         int i = 0;
 
                         while(i < slotsFetched.length()) {
-                            BookedLesson bl = new BookedLesson("912759", teacher, slotsFetched.get(i).toString(), subject, day, "Da Frequentare");
+                            Lesson bl = new Lesson("912759", teacher, slotsFetched.get(i).toString(), subject, day, "Da Frequentare");
                             availableLessons.add(bl);
                             i++;
                         }

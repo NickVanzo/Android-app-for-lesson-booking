@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.bookinglessons.Model.ViewModels.BookedLessonsViewModel;
-import com.example.bookinglessons.Model.ViewModels.DeletedPastLessonsViewModel;
 import com.example.bookinglessons.Model.ViewModels.UserViewModel;
 import com.example.bookinglessons.Network.MySingleton;
 import com.example.bookinglessons.Model.*;
@@ -37,7 +36,6 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
     Bundle extras;
     private UserViewModel viewModel;
     private BookedLessonsViewModel bookedLessonsViewModel;
-    private DeletedPastLessonsViewModel deletedPastLessonsViewModel;
     RequestQueue requestQueue;
 
     @Override
@@ -52,8 +50,8 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
         showWelcomeToast(usernameOfLoggedUser);
         setViewModelUser(usernameOfLoggedUser, roleOfLoggedUser, surnameOfLoggedUser);
         fetchLessons("Da frequentare", bookedLessonsViewModel);
-        fetchLessons("Cancellata", deletedPastLessonsViewModel);
-        fetchLessons("Frequentata", deletedPastLessonsViewModel);
+        fetchLessons("Cancellata", bookedLessonsViewModel);
+        fetchLessons("Frequentata", bookedLessonsViewModel);
 
         setupUIElements();
         requestQueue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
@@ -64,7 +62,7 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
      */
     private <T extends ViewModel> void fetchLessons(String state, T v) {
         String url = getResources().getString(R.string.servlet_url) + "book/bookedLessonsForUser?state="+state;
-        ArrayList<BookedLesson> bookedLessons = new ArrayList<>();
+        ArrayList<Lesson> bookedLessons = new ArrayList<>();
         JsonObjectRequest jsonCustomReq = new JsonObjectRequest(
                 url,
                 null,
@@ -81,22 +79,24 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
                             String slot = reservation.getString("slot");
                             String status =reservation.getString("status");
 
-                            BookedLesson bookedLesson = new BookedLesson(idUser, idTeacher, slot, subject, day, status);
-                            bookedLessons.add(bookedLesson);
+                            Lesson lesson = new Lesson(idUser, idTeacher, slot, subject, day, status);
+                            bookedLessons.add(lesson);
                             i++;
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     } finally {
+                        bookedLessonsViewModel = new ViewModelProvider(this).get(BookedLessonsViewModel.class);
+
                         switch (state) {
                             case "Frequentata":
-                                deletedPastLessonsViewModel.setPastLessons(bookedLessons);
+                                bookedLessonsViewModel.setPastLessons(bookedLessons);
                                 break;
                             case "Da frequentare":
-                                setViewModelLessons(bookedLessons);
+                                bookedLessonsViewModel.setBookedLessons(bookedLessons);
                                 break;
                             case "Cancellata":
-                                deletedPastLessonsViewModel.setDeletedLessons(bookedLessons);
+                                bookedLessonsViewModel.setDeletedLessons(bookedLessons);
                                 break;
                             default:
                                 Log.d("in fetchLessons", "There was an error while fetching lessons");
@@ -115,13 +115,12 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
         toast.show();
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         fetchLessons("Da frequentare", bookedLessonsViewModel);
-        fetchLessons("Cancellata", deletedPastLessonsViewModel);
-        fetchLessons("Frequentata", deletedPastLessonsViewModel);
+        fetchLessons("Cancellata", bookedLessonsViewModel);
+        fetchLessons("Frequentata", bookedLessonsViewModel);
     }
 
     private void setupUIElements() {
@@ -147,7 +146,7 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
      */
     private void setViewModelUser(String usernameOfLoggedUser, String roleOfLoggedUser, String surnameOfLoggedUser) {
         viewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        deletedPastLessonsViewModel = new ViewModelProvider(this).get(DeletedPastLessonsViewModel.class);
+        bookedLessonsViewModel = new ViewModelProvider(this).get(BookedLessonsViewModel.class);
 
         viewModel.setUser(usernameOfLoggedUser);
         viewModel.setRole(roleOfLoggedUser);
@@ -155,15 +154,4 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
         viewModel.getUser().observe(this, username -> {
         });
     }
-
-    /**
-     * Pass the array fetched and set the model view for the lessons
-     * @param lessons
-     */
-    private void setViewModelLessons(ArrayList<BookedLesson> lessons) {
-        bookedLessonsViewModel = new ViewModelProvider(this).get(BookedLessonsViewModel.class);
-
-        bookedLessonsViewModel.setBookedLessons(lessons);
-    }
-
 }
