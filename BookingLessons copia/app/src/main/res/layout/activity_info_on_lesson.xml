@@ -13,28 +13,31 @@
             android:layout_height="wrap_content" android:id="@+id/showSubject"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="0.26999998" android:textSize="30sp"/>
+            app:layout_constraintVertical_bias="0.26999998" android:textSize="30sp"
+            app:layout_constraintHorizontal_bias="0.0"/>
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/showSlot"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.39" android:textSize="30sp"/>
+            app:layout_constraintVertical_bias="0.39" android:textSize="30sp"
+            app:layout_constraintHorizontal_bias="0.0"/>
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/showTeacherID"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.16000003" android:textSize="30sp"/>
+            app:layout_constraintVertical_bias="0.16000003" android:textSize="30sp"
+            app:layout_constraintHorizontal_bias="0.0"/>
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/showDay"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            android:textSize="30sp"/>
+            android:textSize="30sp" app:layout_constraintHorizontal_bias="0.0"/>
     <Button
             android:text="Prenota"
             android:layout_width="111dp"

@@ -1,6 +1,9 @@
 package com.example.bookinglessons.View.Activities;
 
+import android.animation.ObjectAnimator;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +42,20 @@ public class InfoOnLessonActivity extends AppCompatActivity {
     }
 
     private void setUpUI() {
+        ObjectAnimator animation_teacher_text = ObjectAnimator.ofFloat(findViewById(R.id.showTeacherID), "translationX", 300f);
+        ObjectAnimator animation_subject_text = ObjectAnimator.ofFloat(findViewById(R.id.showSubject), "translationX", 300f);
+        ObjectAnimator animation_day_text = ObjectAnimator.ofFloat(findViewById(R.id.showDay), "translationX", 300f);
+        ObjectAnimator animation_slot_text = ObjectAnimator.ofFloat(findViewById(R.id.showSlot), "translationX", 300f);
+        animation_day_text.setDuration(1000);
+        animation_day_text.start();
+        animation_slot_text.setDuration(1000);
+        animation_slot_text.start();
+        animation_subject_text.setDuration(1000);
+        animation_subject_text.start();
+        animation_teacher_text.setDuration(1000);
+        animation_teacher_text.start();
+
+
         if(teacherText==null) {
             teacherText = findViewById(R.id.showTeacherID);
             teacherText.setText("Codice docente: " + idTeacher);
