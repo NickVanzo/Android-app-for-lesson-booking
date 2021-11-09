@@ -13,40 +13,44 @@
             android:layout_height="wrap_content" android:id="@+id/showSubject"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="0.24000001"/>
+            app:layout_constraintVertical_bias="0.26999998" android:textSize="30sp"/>
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/showSlot"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.31"/>
+            app:layout_constraintVertical_bias="0.39" android:textSize="30sp"/>
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/showTeacherID"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.17000002"/>
+            app:layout_constraintVertical_bias="0.16000003" android:textSize="30sp"/>
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/showDay"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.38"/>
+            android:textSize="30sp"/>
     <Button
             android:text="Prenota"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/bookButton"
+            android:layout_width="111dp"
+            android:backgroundTint="@color/green"
+            android:layout_height="64dp" android:id="@+id/bookButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@+id/showDay"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.26"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.26"
+            app:layout_constraintVertical_bias="0.32999998"/>
     <Button
             android:text="Cancella"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/deleteButton"
+            android:backgroundTint="@color/red"
+            android:layout_width="114dp"
+            android:layout_height="58dp" android:id="@+id/deleteButton"
             app:layout_constraintTop_toBottomOf="@+id/showDay"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.76"/>
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.76"
+            app:layout_constraintVertical_bias="0.32999998"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
