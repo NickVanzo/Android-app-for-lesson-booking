@@ -5,18 +5,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView android:textColor="#000000"
-              android:id="@+id/user"
+    <TextView android:textColor="#020202"
+              android:id="@+id/nameTeacher"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:textStyle="bold"
+              android:text="id" android:textStyle="bold"
               android:gravity="left"
               android:layout_weight="1"
               android:typeface="monospace"
               android:height="40sp" tools:ignore="MissingConstraints" android:textAlignment="center"/>
 
     <TextView android:textColor="#020202"
-              android:id="@+id/teacher"
+              android:id="@+id/surnameTeacher"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="id" android:textStyle="bold"

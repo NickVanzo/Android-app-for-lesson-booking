@@ -36,15 +36,21 @@ public class AdapterListAvailableLessons extends ArrayAdapter<Lesson> {
         Lesson p = getItem(position);
 
         if (p != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.teacher_available);
-            TextView tt2 = (TextView) v.findViewById(R.id.slot);
+            TextView tt1 = (TextView) v.findViewById(R.id.slot);
+            TextView tt2 = (TextView) v.findViewById(R.id.nameTeacherAvailable);
+
+            TextView tt3 = (TextView) v.findViewById(R.id.surnameTeacherAvailable);
 
             if (tt1 != null) {
-                tt1.setText(p.getIdTeacher());
+                tt1.setText(p.getSlot());
             }
 
             if (tt2 != null) {
-                tt2.setText(p.getSlot());
+                tt2.setText(p.getNameTeacher());
+            }
+
+            if(tt3 != null) {
+                tt3.setText(p.getSurnameTeacher());
             }
         }
 

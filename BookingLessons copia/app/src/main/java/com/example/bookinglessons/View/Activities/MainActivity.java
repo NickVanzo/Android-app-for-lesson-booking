@@ -43,7 +43,7 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         extras = getIntent().getExtras();
-        usernameOfLoggedUser = extras.getString("key-username", "NoValue");
+        usernameOfLoggedUser = extras.getString("key-username", "GUEST ");
         surnameOfLoggedUser = extras.getString("key-surname", "NoValue");
         roleOfLoggedUser = extras.getString("key-role", "NoValue");
         sessionId = extras.getString("key-session-id", "NoValue");
@@ -78,8 +78,10 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
                             String day = reservation.getString("day");
                             String slot = reservation.getString("slot");
                             String status =reservation.getString("status");
+                            String nameTeacher = reservation.getString("nameTeacher");
+                            String surnameTeacher = reservation.getString("surnameTeacher");
 
-                            Lesson lesson = new Lesson(idUser, idTeacher, slot, subject, day, status);
+                            Lesson lesson = new Lesson(idUser, idTeacher, slot, subject, day, status, nameTeacher, surnameTeacher);
                             bookedLessons.add(lesson);
                             i++;
                         }
@@ -148,10 +150,11 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(UserViewModel.class);
         bookedLessonsViewModel = new ViewModelProvider(this).get(BookedLessonsViewModel.class);
 
-        viewModel.setUser(usernameOfLoggedUser);
         viewModel.setRole(roleOfLoggedUser);
         viewModel.setSurname(surnameOfLoggedUser);
+        viewModel.getUser().setValue(usernameOfLoggedUser);
         viewModel.getUser().observe(this, username -> {
+            Log.d("in setView", "USERNAME FOUND: " + username);
         });
     }
 }

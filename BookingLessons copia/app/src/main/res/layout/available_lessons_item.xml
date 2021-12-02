@@ -5,11 +5,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView android:textColor="#000000"
-              android:id="@+id/teacher_available"
+    <TextView android:textColor="#020202"
+              android:id="@+id/nameTeacherAvailable"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:textStyle="bold"
+              android:text="id" android:textStyle="bold"
+              android:gravity="left"
+              android:layout_weight="1"
+              android:typeface="monospace"
+              android:height="40sp" tools:ignore="MissingConstraints" android:textAlignment="center"
+              android:textSize="20sp"/>
+
+    <TextView android:textColor="#020202"
+              android:id="@+id/surnameTeacherAvailable"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="id" android:textStyle="bold"
               android:gravity="left"
               android:layout_weight="1"
               android:typeface="monospace"
@@ -26,5 +37,9 @@
               android:typeface="monospace"
               android:height="40sp" tools:ignore="MissingConstraints" android:textAlignment="center"
               android:textSize="20sp"/>
+
+
+
+
 
 </LinearLayout>

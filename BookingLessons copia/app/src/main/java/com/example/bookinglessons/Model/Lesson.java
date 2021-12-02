@@ -3,14 +3,18 @@ package com.example.bookinglessons.Model;
 public class Lesson {
     private String idUser;
     private String idTeacher;
+    private String nameTeacher;
+    private String surnameTeacher;
     private String slot;
     private String subject;
     private String day;
     private String status;
 
-    public Lesson(String idUser, String idTeacher, String slot, String subject, String day, String status) {
+    public Lesson(String idUser, String idTeacher, String slot, String subject, String day, String status,String nameTeacher, String surnameTeacher) {
         this.idUser = idUser;
         this.idTeacher = idTeacher;
+        this.nameTeacher = nameTeacher;
+        this.surnameTeacher = surnameTeacher;
         this.slot = slot;
         this.subject = subject;
         this.day = day;
@@ -22,11 +26,29 @@ public class Lesson {
         return "Lesson{" +
                 "idUser='" + idUser + '\'' +
                 ", idTeacher='" + idTeacher + '\'' +
+                ", nameTeacher='" + nameTeacher + '\'' +
+                ", surnameTeacher='" + surnameTeacher + '\'' +
                 ", slot='" + slot + '\'' +
                 ", subject='" + subject + '\'' +
                 ", day='" + day + '\'' +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    public String getNameTeacher() {
+        return nameTeacher;
+    }
+
+    public void setNameTeacher(String nameTeacher) {
+        this.nameTeacher = nameTeacher;
+    }
+
+    public String getSurnameTeacher() {
+        return surnameTeacher;
+    }
+
+    public void setSurnameTeacher(String surnameTeacher) {
+        this.surnameTeacher = surnameTeacher;
     }
 
     public String getDay() {

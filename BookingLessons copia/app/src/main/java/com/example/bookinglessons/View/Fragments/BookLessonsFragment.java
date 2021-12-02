@@ -12,7 +12,11 @@ import android.widget.Button;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.bookinglessons.Model.ViewModels.UserViewModel;
 import com.example.bookinglessons.Network.MySingleton;
 import com.example.bookinglessons.View.Activities.ListOfAvailableLessons;
 import com.example.bookinglessons.R;
@@ -37,11 +41,18 @@ public class BookLessonsFragment extends Fragment implements AdapterView.OnItemS
 
         spinner = root.findViewById(R.id.spinner_for_subject);
         button = root.findViewById(R.id.confirm_form_button);
-        Log.d("button" , "button"  +button);
+
+        UserViewModel viewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
+        viewModel.getUser().observe(getViewLifecycleOwner(), usernmae -> {
+            Log.d("in onCreateView", "USEEEEEER"  + usernmae);
+        });
+
         button.setOnClickListener(v -> {
             Intent i = new Intent(getActivity(), ListOfAvailableLessons.class);
             i.putExtra("subject", subjectSelected);
             i.putExtra("day", binding.textDays.getText().toString());
+
             startActivity(i);
         });
 

@@ -58,29 +58,29 @@ public class InfoOnLessonActivity extends AppCompatActivity {
 
         if(teacherText==null) {
             teacherText = findViewById(R.id.showTeacherID);
-            teacherText.setText("Codice docente: " + idTeacher);
+            teacherText.setText("ID teacher: " + idTeacher);
         }
         if(subjectText==null) {
             subjectText = findViewById(R.id.showSubject);
-            subjectText.setText("Materia: " + subject);
+            subjectText.setText("Subject: " + subject);
         }
         if(dayText==null) {
             dayText = findViewById(R.id.showDay);
             switch (day) {
                 case "1":
-                    dayText.setText("Giorno: lunedi'");
+                    dayText.setText("Day: monday");
                     break;
                 case "2":
-                    dayText.setText("Giorno: martedi'");
+                    dayText.setText("Day: tuesday");
                     break;
                 case "3":
-                    dayText.setText("Giorno: mercoledi'");
+                    dayText.setText("Day: wednesday");
                     break;
                 case "4":
-                    dayText.setText("Giorno: giovedi'");
+                    dayText.setText("Day: thursday");
                     break;
                 case "5":
-                    dayText.setText("Giorno: venerdi'");
+                    dayText.setText("Day: friday'");
                     break;
                 default:
                     break;
@@ -88,7 +88,7 @@ public class InfoOnLessonActivity extends AppCompatActivity {
         }
         if(slotText==null) {
             slotText = findViewById(R.id.showSlot);
-            slotText.setText("Orario: " + slot);
+            slotText.setText("Slot: " + slot);
         }
 
         if(bookButton==null) {

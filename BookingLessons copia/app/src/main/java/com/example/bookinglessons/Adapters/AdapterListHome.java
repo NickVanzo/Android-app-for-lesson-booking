@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.example.bookinglessons.Model.Lesson;
 import com.example.bookinglessons.R;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -36,38 +37,30 @@ public class AdapterListHome extends ArrayAdapter<Lesson> {
         Lesson p = getItem(position);
 
         if (p != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.user);
-            TextView tt2 = (TextView) v.findViewById(R.id.teacher);
             TextView tt3 = (TextView) v.findViewById(R.id.day);
             TextView tt4 = (TextView) v.findViewById(R.id.slot);
             TextView tt5 = (TextView) v.findViewById(R.id.subject);
             TextView tt6 = (TextView) v.findViewById(R.id.state);
-
-            if (tt1 != null) {
-                tt1.setText(p.getIdUser());
-            }
-
-            if (tt2 != null) {
-                tt2.setText(p.getIdTeacher());
-            }
+            TextView tt7 = (TextView) v.findViewById(R.id.nameTeacher);
+            TextView tt8 = (TextView) v.findViewById(R.id.surnameTeacher);
 
             if (tt3 != null) {
                 System.out.println(p.getDay());
                 switch (p.getDay()) {
                     case "0":
-                        tt3.setText("LUN");
+                        tt3.setText("MON");
                         break;
                     case "1":
-                        tt3.setText("MAR");
+                        tt3.setText("TUE");
                         break;
                     case "2":
-                        tt3.setText("MER");
+                        tt3.setText("WEN");
                         break;
                     case "3":
-                        tt3.setText("GIO");
+                        tt3.setText("THU");
                         break;
                     case "4":
-                        tt3.setText("VEN");
+                        tt3.setText("FRI");
                         break;
                     default:
                         System.out.println("No valid value for day");
@@ -84,7 +77,24 @@ public class AdapterListHome extends ArrayAdapter<Lesson> {
             }
 
             if( tt6 != null) {
-                tt6.setText(p.getStatus());
+                switch (p.getStatus()) {
+                    case "Da frequentare":
+                        tt6.setText("Booked");
+                        break;
+                    case "Passata":
+                        tt6.setText("Frequented");
+                        break;
+                    case "Cancellata":
+                        tt6.setText("Deleted");
+                }
+            }
+
+            if(tt7 != null) {
+                tt7.setText(p.getNameTeacher());
+            }
+
+            if(tt8 != null) {
+                tt8.setText(p.getSurnameTeacher());
             }
         }
 
