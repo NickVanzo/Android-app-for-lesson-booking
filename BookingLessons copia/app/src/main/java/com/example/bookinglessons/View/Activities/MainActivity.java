@@ -49,11 +49,13 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
         sessionId = extras.getString("key-session-id", "NoValue");
         showWelcomeToast(usernameOfLoggedUser);
         setViewModelUser(usernameOfLoggedUser, roleOfLoggedUser, surnameOfLoggedUser);
+
+        setupUIElements();
+
         fetchLessons("Da frequentare", bookedLessonsViewModel);
         fetchLessons("Cancellata", bookedLessonsViewModel);
         fetchLessons("Frequentata", bookedLessonsViewModel);
 
-        setupUIElements();
         requestQueue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
     }
 
@@ -86,7 +88,7 @@ public class MainActivity<T extends ViewModel> extends AppCompatActivity {
                             i++;
                         }
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        System.out.println(e.getMessage());
                     } finally {
                         bookedLessonsViewModel = new ViewModelProvider(this).get(BookedLessonsViewModel.class);
 

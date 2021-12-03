@@ -2,6 +2,7 @@ package com.example.bookinglessons.View.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,10 @@ public class HomeFragment extends Fragment {
         bookedLessonsViewModel.getBookedLessons().observe(getViewLifecycleOwner(), bookedLessons -> {
             AdapterListHome personalAdapter = new AdapterListHome(getContext(), R.layout.booked_lessons_list_item, bookedLessons);
             listView.setAdapter(personalAdapter);
+        });
+        UserViewModel viewModel = new ViewModelProvider(this.getActivity()).get(UserViewModel.class);
+        viewModel.getUser().observe(this.getViewLifecycleOwner(), username -> {
+            Log.d("in setView", "USERNAME FOUND IN HOMe: " + username);
         });
         return root;
     }

@@ -39,7 +39,6 @@ public class ListOfAvailableLessons extends AppCompatActivity {
             subject = extras.getString("subject");
             day = extras.getString("day");
             username = extras.getString("username");
-            Log.d("in onCreate", "USERNAME RECEIVED: " + username);
         }
 
         if(listView==null) {
@@ -108,7 +107,7 @@ public class ListOfAvailableLessons extends AppCompatActivity {
                         while(i < slotsFetched.length()) {
 
 //                            Log.d("in fetch", "USERNAME " + user);
-                            Lesson bl = new Lesson("user", teacher.getString("id"), slotsFetched.get(i).toString(), subject, day, "Da Frequentare", teacher.getString("nome"), teacher.getString("cognome"));
+                            Lesson bl = new Lesson(username, teacher.getString("id"), slotsFetched.get(i).toString(), subject, day, "Da Frequentare", teacher.getString("nome"), teacher.getString("cognome"));
                             availableLessons.add(bl);
                             i++;
                         }

@@ -42,14 +42,15 @@ public class BookLessonsFragment extends Fragment implements AdapterView.OnItemS
         spinner = root.findViewById(R.id.spinner_for_subject);
         button = root.findViewById(R.id.confirm_form_button);
 
-        UserViewModel viewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        UserViewModel viewModel = new ViewModelProvider(this.getActivity()).get(UserViewModel.class);
 
-        viewModel.getUser().observe(getViewLifecycleOwner(), usernmae -> {
-            Log.d("in onCreateView", "USEEEEEER"  + usernmae);
-        });
+
 
         button.setOnClickListener(v -> {
             Intent i = new Intent(getActivity(), ListOfAvailableLessons.class);
+            viewModel.getUser().observe(this.getViewLifecycleOwner(), username -> {
+                i.putExtra("username", username);
+            });
             i.putExtra("subject", subjectSelected);
             i.putExtra("day", binding.textDays.getText().toString());
 
